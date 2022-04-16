@@ -21,4 +21,4 @@ print(1)
 a = [1,2,3,4,5,6,7,7,7]
 k = 7 
 print(Solution.searchRange1(a,a,k))
-print(1)
+print(a[int(0.5)])

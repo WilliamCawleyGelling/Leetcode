@@ -31,5 +31,30 @@ Constraints:
 """
 
 class Solution:
-    def combine(self, n: int, k: int) -> List[List[int]]:
+    def combine(self, n: int, k: int):
+      #this doesnt need all combinations in every position just the combinations 
         
+      sol = [] 
+        
+      def backtracking(remain, comb, next): 
+          #if a solution is found, condition of k is met 
+          if remain == 0: 
+            sol.append(comb[:])
+          else: 
+            #iterate through all possible candidates 
+            for i in range(next, n+1): 
+              #add a candidate 
+              comb.append(i)
+              #backtrack 
+              backtracking(remain-1, comb, i+1)
+              #remove candidate 
+              comb.pop()
+
+
+      backtracking(k,[],1)
+      return sol 
+
+
+
+
+print(Solution().combine(4,3))

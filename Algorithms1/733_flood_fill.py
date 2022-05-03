@@ -38,6 +38,93 @@ n == image[i].length
 
 """
 
+
 class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
-        
+    def floodFill(self, image, sr, sc, newColor):
+        """
+        :type image: List[List[int]] -> image[i][j] 
+        :type sr: int
+        :type sc: int
+        :type newColor: int 
+        rtype List[List[int]]
+        """
+        # ideas
+        # (sr,sc) is the starting location, so need to check (sr+1, sc), (sr-1, sc), (sr, sc+1), (sr, sc-1) from every point
+        # write a diffrent function that can do this and be called,
+        # if a function = sr,sc then pass through to diffrent one
+        m, n = len(image), len(image[0])
+        startColor = image[sr][sc]
+
+        if newColor == startColor:
+            return image
+
+        def aroundFill(i, j):
+            if image[i][j] == startColor:
+                image[i][j] = newColor
+                if i+1 < m: aroundFill(i+1, j)
+                if i-1 >= 0: aroundFill(i-1, j)
+                if j+1 < n: aroundFill(i, j+1)
+                if j-1 >= 0: aroundFill(i, j-1)
+
+        aroundFill(sr, sc)
+
+        return image
+
+    def floodFillprint(self, image, sr, sc, newColor):
+        """
+        :type image: List[List[int]] -> image[i][j] 
+        :type sr: int
+        :type sc: int
+        :type newColor: int 
+        rtype List[List[int]]
+        """
+        # ideas
+        # (sr,sc) is the starting location, so need to check (sr+1, sc), (sr-1, sc), (sr, sc+1), (sr, sc-1) from every point
+        # write a diffrent function that can do this and be called,
+        # if a function = sr,sc then pass through to diffrent one
+        m = len(image)
+        n = len(image[0])
+        startColor = image[sr][sc]
+
+        if newColor == startColor:
+            return image
+
+        def aroundFill(i, j):
+            print(i, j, 0)
+            if image[i][j] != startColor:
+                print("its not the start color")
+                return
+            image[i][j] = newColor
+            if i+1 < m:
+                print(i+1, j, 1)
+                aroundFill(i+1, j)
+            if i-1 >= 0:
+                print(i-1, j, 2)
+                aroundFill(i-1, j)
+            if j+1 < n:
+                print(i, j+1, 3)
+                aroundFill(i, j+1)
+            if j-1 >= 0:
+                print(i, j-1, 4)
+                aroundFill(i, j-1)
+
+        aroundFill(sr, sc)
+
+        return image
+
+
+if __name__ == "__main__":
+    
+    image = [[1,1,1],[1,1,0],[1,0,1]]
+    sr = 1
+    sc = 1
+    newColor = 2
+    """
+    image = [[0, 0, 0], [0, 1, 1]]
+    sr = 1
+    sc = 1
+    newColor = 1
+    """
+    print(len(image))
+    print(len(image[0]))
+    print(Solution().floodFill(image, sr, sc, newColor))
